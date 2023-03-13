@@ -1,12 +1,97 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>mienbros</ion-title>
+    <ion-title>Jovenes Integrantes - Mienbros</ion-title>
     <ion-buttons slot="start">
       <ion-menu-button menu="main-menu"></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Acciones</ion-card-title>
+            <ion-card-subtitle>Se puede filtrar - agregar - editar - eliminar</ion-card-subtitle>
+          </ion-card-header>
 
+          <!-- Carta para colocar las acciones -->
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <!-- Buscador -->
+                  <ion-searchbar placeholder="Custom Placeholder"></ion-searchbar>
+                </ion-col>
+                <ion-col size="auto">
+                  <!-- Agregar nuevo integrante -->
+                  <ion-button id="open-modal" expand="block">Ingresar Nuevo</ion-button>
+                  <p>{{ message }}</p>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <!-- Modal de ingresar o agregar nuevo integrante -->
+            <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+              <ng-template>
+                <ion-header>
+                  <ion-toolbar>
+                    <ion-buttons slot="start">
+                      <ion-button (click)="cancel()">Cancel</ion-button>
+                    </ion-buttons>
+                    <ion-title>Welcome</ion-title>
+                    <ion-buttons slot="end">
+                      <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
+                    </ion-buttons>
+                  </ion-toolbar>
+                </ion-header>
+                <ion-content class="ion-padding">
+                  <ion-item>
+                    <ion-label position="stacked">Nombres</ion-label>
+                    <ion-input type="text" placeholder="Ingresar Nombres" [(ngModel)]="name"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label position="stacked">Apellidos</ion-label>
+                    <ion-input type="text" placeholder="Ingresar Apellidos" [(ngModel)]="sec_name"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label position="stacked">Numero Celular</ion-label>
+                    <ion-input type="number" placeholder="Ingresar Número" [(ngModel)]="cel"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label position="stacked">Correo</ion-label>
+                    <ion-input type="mail" placeholder="Ingresar Correo" [(ngModel)]="mail"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label position="stacked">Cumpleaños</ion-label>
+                    <ion-input type="date" placeholder="Ingresar Cumpleaños" [(ngModel)]="cump"></ion-input>
+                  </ion-item>
+                </ion-content>
+              </ng-template>
+            </ion-modal>
+            <!-- FIn del modal para ingresar nuevo integrante -->
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="">
+        <ion-card>
+          <ion-list>
+            <ion-item *ngFor="let item of items; let index">
+              <ion-avatar slot="start">
+                <img [src]="'https://picsum.photos/80/80?random=' + index" alt="avatar" />
+              </ion-avatar>
+              <ion-label>{{ item }}</ion-label>
+            </ion-item>
+          </ion-list>
+          <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

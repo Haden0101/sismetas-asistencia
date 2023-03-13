@@ -25,3 +25,18 @@
 #container a {
   text-decoration: none;
 }
+
+ion-item {
+  --padding-start: 0;
+}
+
+/* iOS places the subtitle above the title */
+ion-card-header.ios {
+  display: flex;
+  flex-flow: column-reverse;
+}
+
+.img-vida-nuvea {
+  width: 40rem;
+  height: 17.5rem;
+}
