@@ -1,0 +1,38 @@
+para poder instalar chart.js, herramienta para integrar graficos dentro del proyecto IONIC se necesitan estos comandos, para implementar las librerias y para que haya compatibilidad.
+
+1.- npm install --save chart.js
+2.- npm install --save ng2-charts
+
+	Comandos para compatibilidad
+3.- npm install -D @types/chart.js
+4.- npm install ng2-charts@next --save
+
+Fin.
+
+importamos la libreria en "app.module.ts" 
+
+import { NgChartsModule } from 'ng2-charts';
+
+y colocarlo en proveiders: [{}, NgChartsModule];
+
+----------------------------------------------
+
+luego creamos el "<canvas id="myChart"></canvas>" dentro de nuestro html, lugar donde queremos que aparezca el grafico.
+
+y en su page.ts importamos la libreria:
+
+import { chart } from 'chart.js';
+
+ya con esto podríamos crear el grafico.
+
+
+-----------------------------------------------
+
+Ahora creamos una nueva función 'generarGrafico(){}'. y pegamos dentro el grafico que queremos.
+
+en caso de error en getContext( ... cambiarlos por estas dos lineas de codigo:
+
+const canva = document.getElementById('myChart');
+const ctx = (canva as HTMLCanvasElement).getContext('2d');
+
+Nota: recordar implementar el OnInit.

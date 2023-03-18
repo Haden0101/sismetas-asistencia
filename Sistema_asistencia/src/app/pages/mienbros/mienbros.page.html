@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>Jovenes Integrantes - Mienbros</ion-title>
     <ion-buttons slot="start">
       <ion-menu-button menu="main-menu"></ion-menu-button>
@@ -13,8 +13,23 @@
       <ion-col>
         <ion-card>
           <ion-card-header>
-            <ion-card-title>Acciones</ion-card-title>
-            <ion-card-subtitle>Se puede filtrar - agregar - editar - eliminar</ion-card-subtitle>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <ion-card-title>Lista de Mienbros</ion-card-title>
+                  <ion-card-subtitle> Donde se puede Buscar- Agregar - Editar - Eliminar</ion-card-subtitle>
+                </ion-col>
+                <ion-col size="auto">
+                  <ion-buttons>
+                    <ion-button (click)="showLoading()">
+                      <ion-icon name="reload-circle-outline"></ion-icon>
+                    </ion-button>
+                  </ion-buttons>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+           <!--  <ion-card-title>Lista de Mienbros</ion-card-title>
+            <ion-card-subtitle> Donde se puede Buscar- Agregar - Editar - Eliminar</ion-card-subtitle> -->
           </ion-card-header>
 
           <!-- Carta para colocar las acciones -->
@@ -27,47 +42,48 @@
                 </ion-col>
                 <ion-col size="auto">
                   <!-- Agregar nuevo integrante -->
-                  <ion-button id="open-modal" expand="block">Ingresar Nuevo</ion-button>
-                  <p>{{ message }}</p>
+                  <ion-button class="open-button" id="open-modal" expand="block">Ingresar Nuevo</ion-button>
                 </ion-col>
               </ion-row>
             </ion-grid>
             <!-- Modal de ingresar o agregar nuevo integrante -->
-            <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+            <ion-modal #modales trigger="open-modal" (willDismiss)="onWillDismiss($event)">
               <ng-template>
-                <ion-header>
-                  <ion-toolbar>
-                    <ion-buttons slot="start">
-                      <ion-button (click)="cancel()">Cancel</ion-button>
-                    </ion-buttons>
-                    <ion-title>Welcome</ion-title>
-                    <ion-buttons slot="end">
-                      <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
-                    </ion-buttons>
-                  </ion-toolbar>
-                </ion-header>
-                <ion-content class="ion-padding">
-                  <ion-item>
-                    <ion-label position="stacked">Nombres</ion-label>
-                    <ion-input type="text" placeholder="Ingresar Nombres" [(ngModel)]="name"></ion-input>
-                  </ion-item>
-                  <ion-item>
-                    <ion-label position="stacked">Apellidos</ion-label>
-                    <ion-input type="text" placeholder="Ingresar Apellidos" [(ngModel)]="sec_name"></ion-input>
-                  </ion-item>
-                  <ion-item>
-                    <ion-label position="stacked">Numero Celular</ion-label>
-                    <ion-input type="number" placeholder="Ingresar Número" [(ngModel)]="cel"></ion-input>
-                  </ion-item>
-                  <ion-item>
-                    <ion-label position="stacked">Correo</ion-label>
-                    <ion-input type="mail" placeholder="Ingresar Correo" [(ngModel)]="mail"></ion-input>
-                  </ion-item>
-                  <ion-item>
-                    <ion-label position="stacked">Cumpleaños</ion-label>
-                    <ion-input type="date" placeholder="Ingresar Cumpleaños" [(ngModel)]="cump"></ion-input>
-                  </ion-item>
-                </ion-content>
+                  <!-- HEADER del Modal para ingresar usuasrio -->
+                  <ion-header>
+                    <ion-toolbar>
+                      <ion-buttons slot="start">
+                        <ion-button (click)="modales.dismiss()">Cancelar</ion-button>
+                      </ion-buttons>
+                      <ion-title class="title-card-modal">Nuevo Integrante</ion-title>
+                      <ion-buttons slot="end">
+                        <ion-button (click)="confirm()" [strong]="true">Confirmar</ion-button>
+                      </ion-buttons>
+                    </ion-toolbar>
+                  </ion-header>
+
+                  <ion-content>
+                    <ion-item>
+                      <ion-label position="floating">Nombres</ion-label>
+                      <ion-input type="text" placeholder="Ingresar Nombres" [(ngModel)]="name" required></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label position="floating">Apellidos</ion-label>
+                      <ion-input type="text" placeholder="Ingresar Apellidos" [(ngModel)]="sec_name" required></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label position="floating">Numero Celular</ion-label>
+                      <ion-input type="number" placeholder="Ingresar Número" [(ngModel)]="cel" required></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label position="floating">Correo</ion-label>
+                      <ion-input type="mail" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" placeholder="Ingresar Correo" [(ngModel)]="mail" required></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label position="floating">Cumpleaños</ion-label>
+                      <ion-input type="date" placeholder="Ingresar Cumpleaños" [(ngModel)]="cump" required></ion-input>
+                    </ion-item>
+                  </ion-content>
               </ng-template>
             </ion-modal>
             <!-- FIn del modal para ingresar nuevo integrante -->
@@ -78,20 +94,75 @@
 
     <ion-row>
       <ion-col size="">
-        <ion-card>
-          <ion-list>
-            <ion-item *ngFor="let item of items; let index">
-              <ion-avatar slot="start">
-                <img [src]="'https://picsum.photos/80/80?random=' + index" alt="avatar" />
-              </ion-avatar>
-              <ion-label>{{ item }}</ion-label>
-            </ion-item>
-          </ion-list>
-          <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
-            <ion-infinite-scroll-content></ion-infinite-scroll-content>
-          </ion-infinite-scroll>
-        </ion-card>
+            <ion-list>
+              <ion-list-header>
+                <ion-label class="header-table" >Nombres</ion-label>
+                <ion-label class="header-table" >Apellidos</ion-label>
+                <ion-label class="header-table" >Celular</ion-label>
+                <ion-label class="header-table" >Correo</ion-label>
+                <ion-label class="header-table" >Cumpleaños</ion-label>
+                <ion-label class="header-table" >Acciones</ion-label>
+              </ion-list-header>
+              <ion-item *ngFor="let item of items; let index">
+                <ion-avatar slot="start">
+                  <img [src]="'https://picsum.photos/80/80?random=' + index" alt="avatar" />
+                </ion-avatar>
+                <ion-label class="items-table" >{{ item }}</ion-label>
+                <ion-label class="items-table" >Apellido</ion-label>
+                <ion-label class="items-table" >Celular</ion-label>
+                <ion-label class="items-table" >Correo</ion-label>
+                <ion-label class="items-table" >Cumpleaños</ion-label>
+                <ion-label class="items-table" >
+                  <!-- Botones de editar y eliminar integrante -->
+                  <ion-buttons>
+                    <ion-button id="open-modal-edit" expand="block" color="success">Editar</ion-button>
+                    <ion-button (click)="alertDelete()" color="danger">Eliminar</ion-button>
+                  </ion-buttons>
+                </ion-label>
+              </ion-item>
+            </ion-list>
+            <ion-infinite-scroll threshold="150px" (ionInfinite)="onIonInfinite($event)">
+              <ion-infinite-scroll-content>
+              </ion-infinite-scroll-content>
+            </ion-infinite-scroll>
       </ion-col>
     </ion-row>
   </ion-grid>
+  <!-- modal de editar integrante-->
+  <ion-modal #modal trigger="open-modal-edit" [enterAnimation]="enterAnimation" [leaveAnimation]="leaveAnimation">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Editar Integrante</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="modal.dismiss()">Cancelar</ion-button>
+            <ion-button (click)="Editar()">Editar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-item>
+          <ion-label position="floating">Nombres</ion-label>
+          <ion-input type="text" placeholder="Ingresar Nombres" [(ngModel)]="name" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Apellidos</ion-label>
+          <ion-input type="text" placeholder="Ingresar Apellidos" [(ngModel)]="sec_name" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Numero Celular</ion-label>
+          <ion-input type="number" placeholder="Ingresar Número" [(ngModel)]="cel" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Correo</ion-label>
+          <ion-input type="mail" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" placeholder="Ingresar Correo" [(ngModel)]="mail" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Cumpleaños</ion-label>
+          <ion-input type="date" placeholder="Ingresar Cumpleaños" [(ngModel)]="cump" required></ion-input>
+        </ion-item>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
 </ion-content>
