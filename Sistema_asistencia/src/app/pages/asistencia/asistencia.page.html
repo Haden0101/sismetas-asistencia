@@ -7,6 +7,71 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <ion-card-title>Lista de Asistencia</ion-card-title>
+                  <ion-card-subtitle> Registro de asistencia de los integrantes y/o mienbros</ion-card-subtitle>
+                </ion-col>
+                <ion-col size="auto">
+                  <ion-buttons>
+                    <ion-button (click)="showLoading()">
+                      <ion-icon name="reload-circle-outline"></ion-icon>
+                    </ion-button>
+                  </ion-buttons>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+           <!--  <ion-card-title>Lista de Mienbros</ion-card-title>
+            <ion-card-subtitle> Donde se puede Buscar- Agregar - Editar - Eliminar</ion-card-subtitle> -->
+          </ion-card-header>
+          <!-- Carta para colocar las acciones -->
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <!-- Buscador -->
+                  <ion-searchbar placeholder="Buscar integrante"></ion-searchbar>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
 
+    <ion-row>
+      <ion-col>
+            <ion-list>
+              <ion-list-header>
+                <ion-label class="header-table" >Nombres</ion-label>
+                <ion-label class="header-table" >Apellidos</ion-label>
+                <ion-label class="header-table" >Asistencia</ion-label>
+              </ion-list-header>
+              <ion-item *ngFor="let item of items; let index">
+                <ion-avatar slot="start">
+                  <img [src]="'https://picsum.photos/80/80?random=' + index" alt="avatar" />
+                </ion-avatar>
+                <ion-label class="items-table" >{{ item }}</ion-label>
+                <ion-label class="items-table" >Apellido</ion-label>
+                <ion-label class="items-table" >
+                  <!-- Check para asistencia -->
+                <ion-checkbox slot="end" class="check-asisten" slot="start"></ion-checkbox>
+                </ion-label>
+              </ion-item>
+            </ion-list>
+            <ion-infinite-scroll threshold="150px" (ionInfinite)="onIonInfinite($event)">
+              <ion-infinite-scroll-content>
+              </ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+

@@ -37,8 +37,8 @@
             <ion-grid>
               <ion-row>
                 <ion-col>
-                  <!-- Buscador -->
-                  <ion-searchbar placeholder="Custom Placeholder"></ion-searchbar>
+                  <!-- Buscar por nombre -->
+                  <ion-searchbar placeholder="Buscar integrante"></ion-searchbar>
                 </ion-col>
                 <ion-col size="auto">
                   <!-- Agregar nuevo integrante -->
@@ -93,8 +93,8 @@
     </ion-row>
 
     <ion-row>
-      <ion-col size="">
-            <ion-list>
+      <ion-col style="overflow-x: auto;" size="">
+            <ion-list style="width: 188vh;">
               <ion-list-header>
                 <ion-label class="header-table" >Nombres</ion-label>
                 <ion-label class="header-table" >Apellidos</ion-label>
@@ -103,7 +103,7 @@
                 <ion-label class="header-table" >Cumpleaños</ion-label>
                 <ion-label class="header-table" >Acciones</ion-label>
               </ion-list-header>
-              <ion-item *ngFor="let item of items; let index">
+              <ion-item style="overflow-x: auto;" *ngFor="let item of items; let index">
                 <ion-avatar slot="start">
                   <img [src]="'https://picsum.photos/80/80?random=' + index" alt="avatar" />
                 </ion-avatar>
